@@ -1,0 +1,349 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="5">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JetX Bot Elephant Bet 🚢</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --red: #e74c3c;
+            --green: #2ecc71;
+            --light-green: #27ae60;
+            --dark-green: #16a085;
+            --yellow: #f39c12;
+            --gray: #95a5a6;
+            --light-gray: #ecf0f1;
+            --dark-gray: #7f8c8d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 0;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            margin-right: 10px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 10px;
+        }
+        
+        .card-title i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .current-prediction {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(52, 152, 219, 0.1);
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .multiplier {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        
+        .category {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .time {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+        
+        .red { color: var(--red); }
+        .green { color: var(--green); }
+        .light-green { color: var(--light-green); }
+        .dark-green { color: var(--dark-green); }
+        .yellow { color: var(--yellow); }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-box {
+            background: var(--light-gray);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 5px 0;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+        
+        .history-container {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .history-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .history-multiplier {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .history-time {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+        
+        .warning {
+            background-color: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid var(--red);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .warning i {
+            margin-right: 10px;
+            color: var(--red);
+            font-size: 1.5rem;
+        }
+        
+        .ad-space {
+            background: linear-gradient(135deg, #f5f7fa, #e4e8eb);
+            border: 2px dashed var(--gray);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--dark-gray);
+        }
+        
+        .whatsapp-btn {
+            display: inline-block;
+            background-color: #25D366;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+            background-color: #128C7E;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .multiplier {
+                font-size: 2.5rem;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><span class="logo">🚢</span> JetX Bot Elephant Bet</h1>
+            <p>Previsões inteligentes para maximizar seus ganhos</p>
+        </header>
+        
+        {% if warning_message %}
+        <div class="warning">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div>{{ warning_message }}</div>
+        </div>
+        {% endif %}
+        
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-bolt"></i>
+                <span>Previsão Atual</span>
+            </div>
+            
+            {% if current %}
+            <div class="current-prediction">
+                <div class="multiplier {{ current.css_class }}">
+                    {{ current.value }}x
+                </div>
+                <div class="category {{ current.css_class }}">
+                    {{ current.category }}
+                </div>
+                <div class="time">
+                    Atualizado em: {{ current.time }}
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-label">Multiplicador de Proteção</div>
+                    <div class="stat-value {{ current.css_class }}">{{ current.protection }}x</div>
+                </div>
+                
+                <div class="stat-box">
+                    <div class="stat-label">Sequência de Verdes</div>
+                    <div class="stat-value green">{{ streak }}</div>
+                </div>
+                
+                {% if last_green %}
+                <div class="stat-box">
+                    <div class="stat-label">Último Verde</div>
+                    <div class="stat-value green">{{ last_green.value }}x</div>
+                    <div class="stat-label">{{ last_green.time }}</div>
+                </div>
+                {% endif %}
+            </div>
+            {% else %}
+            <p>Carregando primeira previsão...</p>
+            {% endif %}
+        </div>
+        
+        <div class="ad-space">
+            <i class="fas fa-ad" style="font-size: 2rem; margin-bottom: 10px;"></i>
+            <p>Espaço disponível para anúncios</p>
+            <p>Contate-nos para anunciar aqui</p>
+        </div>
+        
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-history"></i>
+                <span>Histórico Completo</span>
+            </div>
+            
+            <div class="history-container">
+                {% if history %}
+                    {% for item in history %}
+                    <div class="history-item">
+                        <div>
+                            <span class="history-multiplier {{ item.css_class }}">
+                                {{ item.value }}x - {{ item.category }}
+                            </span>
+                            <div class="stat-label">Proteção: {{ item.protection }}x</div>
+                        </div>
+                        <span class="history-time">{{ item.time }}</span>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Nenhum histórico disponível ainda</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div style="text-align: center;">
+            <a href="{{ whatsapp_link }}" class="whatsapp-btn" target="_blank">
+                <i class="fab fa-whatsapp"></i> Entrar no Grupo VIP
+            </a>
+        </div>
+        
+        <footer>
+            <p>JetX Bot Elephant Bet &copy; {{ year }} - Todos os direitos reservados</p>
+            <p>Este é um sistema de previsões automáticas. Jogue com responsabilidade.</p>
+        </footer>
+    </div>
+</body>
+</html>
