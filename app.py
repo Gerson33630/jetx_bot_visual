@@ -1,11 +1,11 @@
 # app.py - JetX Bot Elephant Bet
+
 from flask import Flask, render_template
 import random
 from datetime import datetime
 import pytz
 from threading import Thread, Lock
 import time
-import requests
 
 app = Flask(__name__)
 
@@ -47,54 +47,58 @@ class JetXBot:
         self.lock = Lock()
         self.warning_message = ""
         
-    def generate_multiplier(self):
-        rand = random.random()        
-        if rand < 0.7: return round(random.uniform(1.00, 1.99), 2)
-        elif rand < 0.9: return round(random.uniform(2.00, 4.99), 2)
-        elif rand < 0.98: return round(random.uniform(5.00, 19.99), 2)
-        else: return round(random.uniform(20.00, 25000.00), 2)
-    
-    def classify(self, value):
-        for min_val, max_val, label, css_class in MULTIPLIER_LEVELS:
-            if min_val <= value <= max_val:
-                return label, css_class
-        return "🟥 Desconhecido", "vermelho"
-    
-    def get_protection_multiplier(self, css_class):
-        return PROTECTION_MULTIPLIERS.get(css_class, 1.0)
-    
-    def update_warning_message(self):
-        red_count = sum(1 for item in self.history[-10:] if "Vermelho" in item['category'])
-        if red_count >= 8:
-            self.warning_message = "⚠️ ATENÇÃO: O bot não está acertando. Repouse um pouco, talvez a casa não esteja pagando. Volte a apostar mais tarde."
+    def generate_multiplier(self):  
+        rand = random.random()          
+        if rand < 0.7:
+            return round(random.uniform(1.00, 1.99), 2)  
+        elif rand < 0.9:
+            return round(random.uniform(2.00, 4.99), 2)  
+        elif rand < 0.98:
+            return round(random.uniform(5.00, 19.99), 2)  
         else:
-            self.warning_message = ""
-    
-    def update(self):
-        while True:
-            value = self.generate_multiplier()
-            label, css_class = self.classify(value)
+            return round(random.uniform(20.00, 25000.00), 2)  
+  
+    def classify(self, value):  
+        for min_val, max_val, label, css_class in MULTIPLIER_LEVELS:  
+            if min_val <= value <= max_val:  
+                return label, css_class  
+        return "🟥 Desconhecido", "vermelho"  
+  
+    def get_protection_multiplier(self, css_class):  
+        return PROTECTION_MULTIPLIERS.get(css_class, 1.0)  
+  
+    def update_warning_message(self):  
+        red_count = sum(1 for item in self.history[-10:] if "Vermelho" in item['category'])  
+        if red_count >= 8:  
+            self.warning_message = "⚠️ ATENÇÃO: O bot não está acertando. Repouse um pouco, talvez a casa não esteja pagando. Volte a apostar mais tarde."  
+        else:  
+            self.warning_message = ""  
+  
+    def update(self):  
+        while True:  
+            value = self.generate_multiplier()  
+            label, css_class = self.classify(value)  
             
-            with self.lock:
-                self.current = {
-                    'value': value,
-                    'category': label,
-                    'css_class': css_class,
-                    'time': datetime.now(TIMEZONE).strftime("%H:%M:%S"),
+            with self.lock:  
+                self.current = {  
+                    'value': value,  
+                    'category': label,  
+                    'css_class': css_class,  
+                    'time': datetime.now(TIMEZONE).strftime("%H:%M:%S"),  
                     'protection': self.get_protection_multiplier(css_class)
-                }
+                }  
                 
-                if "Verde" in label:
-                    self.last_green = self.current
-                    self.streak += 1
-                else:
-                    self.streak = 0
+                if "Verde" in label:  
+                    self.last_green = self.current  
+                    self.streak += 1  
+                else:  
+                    self.streak = 0  
                 
-                self.history.append(self.current)
-                if len(self.history) > HISTORY_SIZE:
-                    self.history.pop(0)
+                self.history.append(self.current)  
+                if len(self.history) > HISTORY_SIZE:  
+                    self.history.pop(0)  
                 
-                self.update_warning_message()
+                self.update_warning_message()  
             
             time.sleep(PREDICTION_INTERVAL)
 
@@ -106,7 +110,7 @@ def index():
     with bot.lock:
         return render_template('index.html',
             current=bot.current,
-            history=bot.history[::-1],  # Histórico completo ordenado do mais recente
+            history=bot.history[::-1],
             last_green=bot.last_green,
             streak=bot.streak,
             warning_message=bot.warning_message,
