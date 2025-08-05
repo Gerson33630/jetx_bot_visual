@@ -1,0 +1,5 @@
+2025-08-01 00:20:11,276 - MultiGamePredictor - INFO - ✅ XGBoost manual carregado com sucesso!
+2025-08-01 00:20:11,328 - werkzeug - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2025-08-01 00:21:03,475 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 00:21:03] "[33mGET / HTTP/1.1[0m" 404 -
+2025-08-01 00:21:03,699 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 00:21:03] "[33mGET / HTTP/1.1[0m" 404 -
+2025-08-01 00:21:04,473 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 00:21:04] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -

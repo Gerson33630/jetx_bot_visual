@@ -1,0 +1,348 @@
+:root {
+    --primary: #2c3e50;
+    --primary-light: #3a516e;
+    --secondary: #3498db;
+    --red: #e74c3c;
+    --green: #2ecc71;
+    --green-light: #27ae60;
+    --green-dark: #16a085;
+    --yellow: #f39c12;
+    --gray: #95a5a6;
+    --gray-light: #ecf0f1;
+    --gray-dark: #7f8c8d;
+    --white: #ffffff;
+    --black: #1a1a1a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f5f7fa;
+    color: var(--black);
+    line-height: 1.6;
+}
+
+.app-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: var(--white);
+    padding: 1.5rem;
+    text-align: center;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.header-content h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 0.5rem;
+}
+
+.last-update {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.app-main {
+    padding: 1.5rem;
+    flex: 1;
+}
+
+.current-prediction {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.multiplier-display {
+    font-size: 4rem;
+    font-weight: 700;
+    display: flex;
+    align-items: baseline;
+    margin: 0.5rem 0;
+}
+
+.multiplier-display .value {
+    line-height: 1;
+}
+
+.multiplier-display .unit {
+    font-size: 2rem;
+    opacity: 0.8;
+}
+
+.multiplier-display.red {
+    color: var(--red);
+}
+
+.multiplier-display.green-low {
+    color: var(--green);
+}
+
+.multiplier-display.green-medium {
+    color: var(--green-light);
+}
+
+.multiplier-display.green-high, 
+.multiplier-display.green-super,
+.multiplier-display.green-mega,
+.multiplier-display.green-ultra,
+.multiplier-display.green-alpha {
+    color: var(--green-dark);
+}
+
+.prediction-info {
+    margin-top: 0.5rem;
+}
+
+.category {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.protection {
+    font-size: 0.9rem;
+    color: var(--gray-dark);
+    margin-bottom: 0.3rem;
+}
+
+.time {
+    font-size: 0.8rem;
+    color: var(--gray);
+}
+
+.stats-section {
+    margin-bottom: 1.5rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.stat-card {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+}
+
+.stat-value.green {
+    color: var(--green);
+}
+
+.stat-value.red {
+    color: var(--red);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--gray-dark);
+}
+
+.stat-sublabel {
+    font-size: 0.8rem;
+    color: var(--gray);
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.alert.warning {
+    background-color: rgba(231, 76, 60, 0.1);
+    border-left: 4px solid var(--red);
+    color: var(--red);
+}
+
+.history-section {
+    margin-bottom: 1.5rem;
+}
+
+.history-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.history-container {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.history-item {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.history-item:hover {
+    transform: translateY(-2px);
+}
+
+.history-item.red {
+    border-left: 4px solid var(--red);
+}
+
+.history-item.green-low {
+    border-left: 4px solid var(--green);
+}
+
+.history-item.green-medium {
+    border-left: 4px solid var(--green-light);
+}
+
+.history-item.green-high, 
+.history-item.green-super,
+.history-item.green-mega,
+.history-item.green-ultra,
+.history-item.green-alpha {
+    border-left: 4px solid var(--green-dark);
+}
+
+.item-multiplier {
+    font-weight: 600;
+    font-size: 1.1rem;
+    min-width: 60px;
+}
+
+.item-details {
+    flex: 1;
+    margin: 0 1rem;
+}
+
+.item-category {
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+}
+
+.item-protection {
+    font-size: 0.8rem;
+    color: var(--gray-dark);
+}
+
+.item-time {
+    font-size: 0.8rem;
+    color: var(--gray);
+    min-width: 70px;
+    text-align: right;
+}
+
+.app-footer {
+    margin-top: auto;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.whatsapp-button {
+    display: inline-block;
+    background-color: #25D366;
+    color: var(--white);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.whatsapp-button:hover {
+    background-color: #128C7E;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.copyright {
+    font-size: 0.8rem;
+    color: var(--gray-dark);
+    margin-bottom: 0.3rem;
+}
+
+.disclaimer {
+    font-size: 0.7rem;
+    color: var(--gray);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .app-container {
+        padding: 0;
+    }
+    
+    .header-content h1 {
+        font-size: 1.5rem;
+    }
+    
+    .multiplier-display {
+        font-size: 3rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .history-item {
+        flex-wrap: wrap;
+    }
+    
+    .item-multiplier {
+        margin-bottom: 0.5rem;
+    }
+    
+    .item-time {
+        text-align: left;
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+}
